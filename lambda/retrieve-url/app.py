@@ -7,7 +7,8 @@ db_tablename = os.getenv('DB_NAME')
 ddb = boto3.resource('dynamodb', region_name = region_aws).Table(db_tablename)
 
 def lambda_handler(event, context):
-    short_id = event.get('pathParameters', {}).get('short_id') if event.get('pathParameters') else None
+    # Handle AWS integration format
+    short_id = event.get('short_id')
    
     try:
         item = ddb.get_item(Key={'short_id': short_id})
@@ -26,7 +27,5 @@ def lambda_handler(event, context):
    
     return {
         "statusCode": 302,
-        "headers": {
-            "Location": long_url
-        }
+        "location": long_url
     }
