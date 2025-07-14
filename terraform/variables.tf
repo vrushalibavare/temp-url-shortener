@@ -1,12 +1,16 @@
-variable "region" {
-  description = "The AWS region to deploy resources in"
-  type        = string
-  default     = "ap-southeast-1"
+variable "domain_name" {
+  default = "vrushurl.sctp-sandbox.com"
 }
 
-variable "dynamodb_table" {
-  description = "The name of the DynamoDB table to use for storing URLs"
-  type        = string
-  default     = "url-shortener-table" 
-  
+variable "hosted_zone_id" {
+  description = "Route53 Hosted Zone ID for sctp-sandbox.com"
+  default     = "Z00541411T1NGPV97B5C0" # Replace with your actual zone ID
+}
+
+variable "dynamodb_table_name" {
+  default = "short_urls"
+}
+
+variable "region" {
+  default = "ap-southeast-1"
 }

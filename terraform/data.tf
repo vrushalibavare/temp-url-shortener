@@ -1,13 +1,12 @@
-data aws_availability_zones {
+data "aws_availability_zones" "available" {
   state = "available"
   filter {
     name   = "region-name"
     values = [var.region]
-    
   }
-} 
+}
 
-data aws_iam_policy_document lambda_ddb_policy  {
+data "aws_iam_policy_document" "lambda_ddb_policy" {
   statement {
     actions = [
       "dynamodb:PutItem",
@@ -21,12 +20,12 @@ data aws_iam_policy_document lambda_ddb_policy  {
 
 data "archive_file" "lambda_createurl_zip" {
   type        = "zip"
-  source_file  = "${path.module}/lambda/create-url/app.py"
-  output_path = "${path.module}/lambda/create-url/app.zip"
+  source_file = "${path.module}/../lambda/create-url/app.py"
+  output_path = "${path.module}/lambda_create_url.zip"
 }
 
 data "archive_file" "lambda_retrieveurl_zip" {
   type        = "zip"
-  source_file  = "${path.module}/lambda/retrieve-url/app.py"
-  output_path = "${path.module}/lambda/retrieve-url/app.zip"
+  source_file = "${path.module}/../lambda/retrieve-url/app.py"
+  output_path = "${path.module}/lambda_retrieve_url.zip"
 }

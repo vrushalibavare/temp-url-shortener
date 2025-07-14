@@ -41,7 +41,8 @@ def lambda_handler(event, context):
     print(event)
     short_id = generate_id()
     short_url = app_url + short_id
-    long_url = json.loads(event.get('body')).get('long_url')
+    body = json.loads(event.get('body'))
+    long_url = body.get('long_url') or body.get('url')
     timestamp = generate_timestamp()
     ttl_value = expiry_date()
    
